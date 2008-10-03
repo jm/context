@@ -1,20 +1,20 @@
-= context -- The testing library you've been looking for
+# context -- The testing library you've been looking for
 
 http://github.com/jeremymcanally/context
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 If you've ever wanted contexts in your Test::Unit tests, then context is for you.  Your tests will be easier to read and write without all the magic and extra code smell!
 
-== FEATURES/PROBLEMS:
+## FEATURES/PROBLEMS:
 
 * Add contexts to Test::Unit tests
 * Small DSL for specifying tests that are pretty
 * Ability to chain context lifecycle methods (coming soon)
 
-== SYNOPSIS:
+## SYNOPSIS:
 
-Add contexts using familiar syntax:
+* Add contexts using familiar syntax:
 
     class UserTest < Test::Unit::TestCase
       context "A new User" do
@@ -44,7 +44,7 @@ Add contexts using familiar syntax:
       end
     end
 
-It also has aliases that match other library's syntaxes (all of which can be mixed and matched):
+* It also has aliases that match other library's syntaxes (all of which can be mixed and matched):
 
     class UserTest < Test::Unit::TestCase
       # RSpec-esque
@@ -62,7 +62,7 @@ It also has aliases that match other library's syntaxes (all of which can be mix
       end
     end
     
-Contexts can also be nested:
+* Contexts can also be nested:
 
   class UserTest < Test::Unit::TestCase
     context "A new User" do
@@ -80,16 +80,16 @@ Contexts can also be nested:
     end
   end
 
-== REQUIREMENTS:
+## REQUIREMENTS:
 
 * Test::Unit (you have it; trust me)
 
-== INSTALL:
+## INSTALL:
     
     $ gem sources -a http://gems.github.com
     $ sudo gem install jeremymcanally-context
 
-== LICENSE:
+## LICENSE:
 
 Copyright (c) 2008 Jeremy McAnally
 
