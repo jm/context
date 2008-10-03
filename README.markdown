@@ -32,7 +32,6 @@ If you've ever wanted contexts in your Test::Unit tests, then context is for you
             @user.first_name = "Mad"
             @user.last_name = "Max"
             @user.save
-      
             assert_equal "Mad Max", @user.full_name
           end
 
