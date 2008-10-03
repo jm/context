@@ -16,69 +16,69 @@ If you've ever wanted contexts in your Test::Unit tests, then context is for you
 
 * Add contexts using familiar syntax:
 
-    class UserTest < Test::Unit::TestCase
-      context "A new User" do
-        # Before/after lifecycle blocks
-        before do
-          @user = User.first
-        end
+      class UserTest < Test::Unit::TestCase
+        context "A new User" do
+          # Before/after lifecycle blocks
+          before do
+            @user = User.first
+          end
 
-        # Specify tests using DSL
-        test "should have the right full_name" do
-          assert_equal "Dude Man", @user.full_name
-        end
-        
-        test "should be able to set parts of the name" do
-          @user.first_name = "Mad"
-          @user.last_name = "Max"
-          @user.save
-          
-          assert_equal "Mad Max", @user.full_name
-        end
+          # Specify tests using DSL
+          test "should have the right full_name" do
+            assert_equal "Dude Man", @user.full_name
+          end
+    
+          test "should be able to set parts of the name" do
+            @user.first_name = "Mad"
+            @user.last_name = "Max"
+            @user.save
+      
+            assert_equal "Mad Max", @user.full_name
+          end
 
-        after do
-          @user.first_name = "Dude"
-          @user.last_name = "Man"
-          @user.save!
+          after do
+            @user.first_name = "Dude"
+            @user.last_name = "Man"
+            @user.save!
+          end
         end
       end
-    end
 
 * It also has aliases that match other library's syntaxes (all of which can be mixed and matched):
 
-    class UserTest < Test::Unit::TestCase
-      # RSpec-esque
-      describe "A new User" do
-        it "should do things" do
-          User.first.do_things!
+      class UserTest < Test::Unit::TestCase
+        # RSpec-esque
+        describe "A new User" do
+          it "should do things" do
+            User.first.do_things!
+          end
         end
-      end
   
-      # Shoulda-esque
-      context "Another User" do
-        should "do things that are fun" do
-          User.first.do_things!(:fun)
+        # Shoulda-esque
+        context "Another User" do
+          should "do things that are fun" do
+            User.first.do_things!(:fun)
+          end
         end
       end
-    end
     
 * Contexts can also be nested:
 
-  class UserTest < Test::Unit::TestCase
-    context "A new User" do
-      context "with clown shoes" do
-        test "should squeak" do
-          assert_true User.find_by_shoes("clown").squeak?
+    class UserTest < Test::Unit::TestCase
+      context "A new User" do
+        context "with clown shoes" do
+          test "should squeak" do
+            assert_true User.find_by_shoes("clown").squeak?
+          end
         end
-      end
       
-      context "without clown shoes" do
-        test "should not squeak" do
-          assert_false User.find_by_shoes("dressy").squeak?
+        context "without clown shoes" do
+          test "should not squeak" do
+            assert_false User.find_by_shoes("dressy").squeak?
+          end
         end
       end
     end
-  end
 
 ## REQUIREMENTS:
 
