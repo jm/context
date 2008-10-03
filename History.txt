@@ -1,4 +1,5 @@
-== 0.0.1 2008-09-18
+== 0.0.1 2008-10-02
 
 * 1 major enhancement:
   * Initial release
+  * Contexts, lifecycle, and test methods
