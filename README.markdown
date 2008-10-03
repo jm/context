@@ -1,4 +1,4 @@
-# context -- The testing library you've been looking for
+# context – The testing library you've been looking for
 
 http://github.com/jeremymcanally/context
 
