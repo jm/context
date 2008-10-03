@@ -2,7 +2,7 @@ class Test::Unit::TestCase
   class << self
     # Tweaks to standard method so we don't get superclass methods and we don't
     # get weird default tests
-    def suite
+    def suite # :nodoc:
       method_names = public_instance_methods(false)
       tests = method_names.delete_if {|method_name| method_name !~ /^test./}
       suite = Test::Unit::TestSuite.new(name)

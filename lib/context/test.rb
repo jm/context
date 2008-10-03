@@ -1,5 +1,12 @@
 class Test::Unit::TestCase
   class << self
+    # Create a test method.  +name+ is a native-language string to describe the test
+    # (e.g., no more +test_this_crazy_thing_with_underscores+).
+    #
+    #     test "A user should not be able to delete another user" do
+    #       assert_false @user.can?(:delete, @other_user)
+    #     end
+    #
     def test(name, &block)
       test_name = "test_#{((superclass.context_name ? (superclass.context_name + " ") : "") + name).to_method_name}".to_sym
       
