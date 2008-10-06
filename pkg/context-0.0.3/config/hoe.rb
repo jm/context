@@ -2,7 +2,7 @@ require 'context/version'
 
 AUTHOR = 'Jeremy McAnally'  # can also be an array of Authors
 EMAIL = "jeremy@entp.com"
-DESCRIPTION = "description of gem"
+DESCRIPTION = "Contexts and DSL sugar for your tests"
 GEM_NAME = 'context' # what ppl will type to install your gem
 RUBYFORGE_PROJECT = 'context' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
@@ -38,7 +38,7 @@ VERS = Context::VERSION::STRING + (REV ? ".#{REV}" : "")
 RDOC_OPTS = ['--quiet', '--title', 'context documentation',
     "--opname", "index.html",
     "--line-numbers",
-    "--main", "README",
+    "--main", "README.rdoc",
     "--inline-source"]
 
 class Hoe
