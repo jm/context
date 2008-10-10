@@ -41,6 +41,7 @@ class Test::Unit::TestCase
     def context(name, &block)
       cls = Class.new(self)
       cls.context_name = name
+      puts "Creating context #{cls.context_name}"
       cls.class_eval(&block)
       
       cls

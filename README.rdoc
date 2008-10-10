@@ -46,6 +46,12 @@ If you've ever wanted contexts in your Test::Unit tests, then context is for you
 * It also has aliases that match other library's syntaxes (all of which can be mixed and matched):
 
       class UserTest < Test::Unit::TestCase
+        context "A new Account" do
+          test "should be new" do
+            Account.new.new_record?
+          end
+        end
+        
         # RSpec-esque
         describe "A new User" do
           it "should do things" do
@@ -75,6 +81,42 @@ If you've ever wanted contexts in your Test::Unit tests, then context is for you
           test "should not squeak" do
             assert_false User.find_by_shoes("dressy").squeak?
           end
+        end
+      end
+    end
+
+* You can also share behavior among contexts:
+
+    class UserTest < Test::Unit::TestCase
+      shared "shared things" do
+        test "things are shared" do
+          # test logic here...
+        end
+      end
+      
+      context "the first thing" do
+        uses "shared things"
+        
+        test "other things..." do
+          # More testing...
+        end
+      end
+    end
+
+* Shared behaviors can also use RSpec syntax
+
+    class UserTest < Test::Unit::TestCase
+      share_examples_for "shared things" do
+        it "things are shared" do
+          # test logic here...
+        end
+      end
+  
+      describe "the first thing" do
+        it_should_behave_like "shared things"
+    
+        it "other things..." do
+          # More testing...
         end
       end
     end

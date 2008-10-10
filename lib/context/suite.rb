@@ -4,6 +4,7 @@ class Test::Unit::TestCase
     # get weird default tests
     def suite # :nodoc:
       method_names = public_instance_methods(false)
+
       tests = method_names.delete_if {|method_name| method_name !~ /^test./}
       suite = Test::Unit::TestSuite.new(name)
       
