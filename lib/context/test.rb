@@ -9,7 +9,7 @@ class Test::Unit::TestCase
     #
     def test(name, &block)
       test_name = "test_#{((context_name == "" ? context_name : context_name + " ") + name).to_method_name}".to_sym
-      puts "running test #{test_name}"
+      # puts "running test #{test_name}"
       defined = instance_method(test_name) rescue false
       raise "#{test_name} is already defined in #{self}" if defined
       
