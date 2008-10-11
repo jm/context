@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "lib/context/lifecycle.rb",
     "lib/context/suite.rb",
     "lib/context/context.rb",
+    "lib/context/shared_behavior.rb",
     "lib/context/test.rb",
     "lib/context/version.rb",
     "lib/context/core_ext/string.rb",
