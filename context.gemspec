@@ -9,8 +9,6 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
   s.authors  = ["Jeremy McAnally"]
   s.files    = [
-    "History.txt", 
-  	"Manifest.txt", 
   	"README.rdoc", 
   	"Rakefile", 
   	"context.gemspec", 
@@ -18,8 +16,6 @@ Gem::Specification.new do |s|
     "License.txt",
     "Manifest.txt",
     "PostInstall.txt",
-    "README.markdown",
-    "Rakefile",
     "config/hoe.rb",
     "config/requirements.rb",
     "lib/context.rb",
