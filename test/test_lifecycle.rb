@@ -1,17 +1,55 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 
 class TestLifecycle < Test::Unit::TestCase
-  context "A before block" do
-    it "should define a setup method" do
-      self.class.before { true }
-      assert self.class.method_defined?(:setup)
+  before do
+    @a = 1
+  end
+
+  before do
+    @a = 2
+    @b = 1
+  end
+
+  after do
+    @c = 1
+  end
+
+  sample_test = context "lifecycle" do
+    attr_reader :a, :b, :c, :d
+
+    before do
+      @a = 3
+    end
+
+    after do
+      @d = 1
+    end
+
+    test "foo" do
     end
   end
-  
-  context "An after block" do
-    it "should define a teardown method" do
-      self.class.after { true }
-      assert self.class.method_defined?(:teardown)
+
+  context "With before/after blocks" do
+    before do
+      @result = Test::Unit::TestResult.new
+      @test = sample_test.new("test_lifecycle_foo")
+      @test.run(@result) { |c, v| }
+    end
+
+    it "it runs inherited before callbacks in order" do
+      assert_equal 3, @test.a
+    end
+
+    it "it runs before callbacks in order" do
+      assert_equal 1, @test.b
+    end
+
+    it "it runs inherited after callbacks" do
+      assert_equal 1, @test.c
+    end
+
+    it "it runs after callbacks" do
+      assert_equal 1, @test.d
     end
   end
 end
