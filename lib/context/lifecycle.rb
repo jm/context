@@ -59,9 +59,4 @@ class Test::Unit::TestCase
       instance_variable_set name, value
     end
   end
-
-private
-  def instance_variable_hash
-    instance_variables.inject({}) { |hash, var| }
-  end
 end
