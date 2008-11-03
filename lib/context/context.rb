@@ -1,5 +1,10 @@
 class Test::Unit::TestCase
   class << self
+    # Test::Unit uses ObjectSpace to figure out what Test::Unit:TestCase instances are running
+    # Contexts are not named and therefore sometimes get garbage collected.
+    # Think of #context_list as the shelter for nameless contexts
+    attr_accessor :context_list
+
     def context_name #:nodoc:
       @context_name ||= ""
       if superclass.respond_to?(:context_name)
@@ -43,7 +48,7 @@ class Test::Unit::TestCase
       cls.context_name = name
       # puts "Creating context #{cls.context_name}"
       cls.class_eval(&block)
-      
+      (self.context_list ||= []) << cls
       cls
     end
 
