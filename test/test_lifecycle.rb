@@ -23,7 +23,7 @@ class TestLifecycle < Test::Unit::TestCase
   end
 
   sample_test = context "lifecycle" do
-    attr_reader :a, :b, :c, :d, :e, :f, :g, :h
+    attr_reader :a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l
 
     before do
       @a = 3
@@ -45,11 +45,31 @@ class TestLifecycle < Test::Unit::TestCase
     end
   end
 
+  before do
+    @i = 1
+  end
+
+  after do
+    @j = 1
+  end
+
+  before :all do
+    @k = 1
+  end
+
+  after :all do
+    @l = 1
+  end
+
   context "With before/after :each blocks" do
     before do
       @result = Test::Unit::TestResult.new
       @test = sample_test.new("test_lifecycle_foo")
       @test.run(@result) { |c, v| }
+    end
+
+    it "it runs superclass before callbacks in order" do
+      assert_equal 1, @test.i
     end
 
     it "it runs inherited before callbacks in order" do
@@ -58,6 +78,10 @@ class TestLifecycle < Test::Unit::TestCase
 
     it "it runs before callbacks in order" do
       assert_equal 1, @test.b
+    end
+
+    it "it runs superclass after callbacks" do
+      assert_equal 1, @test.j
     end
 
     it "it runs inherited after callbacks" do
@@ -77,12 +101,20 @@ class TestLifecycle < Test::Unit::TestCase
       @test   = @suite.tests.first
     end
 
+    it "it runs superclass before callbacks in order" do
+      assert_equal 1, @test.k
+    end
+
     it "it runs inherited before callbacks in order" do
       assert_equal 1, @test.e
     end
 
     it "it runs before callbacks in order" do
       assert_equal 1, @test.g
+    end
+
+    it "it runs superclass after callbacks" do
+      assert_equal 1, @test.l
     end
 
     it "it runs inherited after callbacks" do
