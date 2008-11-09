@@ -18,9 +18,9 @@ class TestTest < Test::Unit::TestCase
       test "based on a string name" do
         self.class.shared "things and fun" do
         end
-      
+
         assert Object.const_get(:ThingsAndFun)
-        assert_equal Module, Object.const_get(:ThingsAndFun).class
+        assert_equal SharedContext, Object.const_get(:ThingsAndFun).class
       end
     
       it "based on a symbol name" do
@@ -28,7 +28,7 @@ class TestTest < Test::Unit::TestCase
         end
       
         assert Object.const_get(:FunAndGames)
-        assert_equal Module, Object.const_get(:FunAndGames).class
+        assert_equal SharedContext, Object.const_get(:FunAndGames).class
       end
     
       it "unless the name is not a String or Symbol" do
@@ -79,14 +79,15 @@ class TestTest < Test::Unit::TestCase
   
     context "should include its shared behavior" do
       shared "Athos" do
-        def en_garde!
+        it "en_garde" do
           true
         end
       end
     
       it "by a symbol" do
         self.class.use :athos
-        assert en_garde!
+
+        assert test_a_shared_group_should_include_its_shared_behavior_en_garde
       end
     
       shared "Porthos" do

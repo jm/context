@@ -5,7 +5,7 @@ module Test
         # Tweaks to standard method so we don't get superclass methods and we don't
         # get weird default tests
         def suite # :nodoc:
-          method_names = public_instance_methods(false)
+          method_names = public_instance_methods - superclass.public_instance_methods
     
           tests = method_names.delete_if {|method_name| method_name !~ /^test./}
           suite = Test::Unit::TestSuite.new(name)
