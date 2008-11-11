@@ -2,20 +2,17 @@ module Context
   class SharedBehavior < Module
     def self.create_from_behavior(beh)
       mod = self.new
-      mod.behavior = beh
+      mod._behavior = beh
+      
       mod
     end
   
-    def behavior=(beh)
-      @behavior = beh
-    end
-  
-    def behavior
-      @behavior
+    def _behavior=(beh)
+      @_behavior = beh
     end
   
     def included(arg)
-      @behavior.call
+      @_behavior.call
     end
   end
 end
