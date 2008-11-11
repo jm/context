@@ -20,7 +20,7 @@ class TestTest < Test::Unit::TestCase
         end
 
         assert Object.const_get(:ThingsAndFun)
-        assert_equal SharedContext, Object.const_get(:ThingsAndFun).class
+        assert_equal Context::SharedBehavior, Object.const_get(:ThingsAndFun).class
       end
     
       it "based on a symbol name" do
@@ -28,7 +28,7 @@ class TestTest < Test::Unit::TestCase
         end
       
         assert Object.const_get(:FunAndGames)
-        assert_equal SharedContext, Object.const_get(:FunAndGames).class
+        assert_equal Context::SharedBehavior, Object.const_get(:FunAndGames).class
       end
     
       it "unless the name is not a String or Symbol" do

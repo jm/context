@@ -1,20 +1,22 @@
-class SharedContext < Module
-  def self.create_from_behavior(beh)
-    mod = self.new
-    mod.behavior = beh
-    mod
-  end
+module Context
+  class SharedBehavior < Module
+    def self.create_from_behavior(beh)
+      mod = self.new
+      mod.behavior = beh
+      mod
+    end
   
-  def behavior=(beh)
-    @behavior = beh
-  end
+    def behavior=(beh)
+      @behavior = beh
+    end
   
-  def behavior
-    @behavior
-  end
+    def behavior
+      @behavior
+    end
   
-  def included(arg)
-    @behavior.call
+    def included(arg)
+      @behavior.call
+    end
   end
 end
 
@@ -30,14 +32,14 @@ class Test::Unit::TestCase
         raise ArgumentError, "Provide a String or Symbol as the name of the shared behavior group"
       end
       
-      Object.const_set(name, SharedContext.create_from_behavior(block))
+      Object.const_set(name, Context::SharedBehavior.create_from_behavior(block))
     end
     
     %w(shared_behavior share_as share_behavior_as shared_examples_for).each {|m| alias_method m, :shared}
     
     def use(shared_name)
       case shared_name.class.name
-      when "SharedContext", "Module"
+      when "Context::SharedBehavior", "Module"
         include shared_name
       when "String"
         include Object.const_get(shared_name.to_module_name)
