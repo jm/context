@@ -50,8 +50,7 @@ class Test::Unit::TestCase
       cls.class_eval(&block)
       (self.context_list ||= []) << cls
       
-      # TODO: Find a better way to uniquely identify classes
-      const_set("Test#{name.to_class_name}#{cls.object_id}", cls)
+      const_set("Test#{name.to_class_name}#{cls.object_id.abs}", cls)
       cls
     end
 
