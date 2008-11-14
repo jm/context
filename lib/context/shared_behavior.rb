@@ -19,6 +19,33 @@ end
 
 class Test::Unit::TestCase
   class << self
+    # Share behavior among different contexts.  This creates a module (actually, a Module subclass)
+    # that is included using the +use+ method (or one of its aliases) provided by context or +include+ 
+    # if you know the module's constant name.
+    #
+    # ==== Examples
+    #   
+    #   shared "other things" do
+    #     it "should do things but not some things" do
+    #       # behavior is fun
+    #     end
+    #   end
+    #
+    #   use "other things"
+    #   # or...
+    #   it_should_behave_like "other things"
+    #
+    #   shared :client do
+    #     it "should be a client to our server" do
+    #       # TODO: client behavior here
+    #     end
+    #   end
+    #
+    #   use :client
+    #   # or...
+    #   uses "client"
+    #   behaves_like "client"
+    #
     def shared(name, &block)
       case name.class.name
       when "String"
@@ -34,6 +61,25 @@ class Test::Unit::TestCase
     
     %w(shared_behavior share_as share_behavior_as shared_examples_for).each {|m| alias_method m, :shared}
     
+    # Pull in behavior shared by +shared+ or a module.  
+    #
+    # ==== Examples
+    #   
+    #   shared "other things" do
+    #     it "should do things but not some things" do
+    #       # behavior is fun
+    #     end
+    #   end
+    #
+    #   use "other things"
+    #   # or...
+    #   it_should_behave_like "other things"
+    #
+    #   module Things
+    #   end
+    #
+    #   uses Things
+    #
     def use(shared_name)
       case shared_name.class.name
       when "Context::SharedBehavior", "Module"
