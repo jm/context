@@ -22,7 +22,7 @@ class Test::Unit::TestCase
       send("after_#{period}_callbacks") << block
     end
 
-    def gather_callbacks(callback_type, period)
+    def gather_callbacks(callback_type, period) # :nodoc:
       callbacks = superclass.respond_to?(:gather_callbacks) ? superclass.gather_callbacks(callback_type, period) : []
       callbacks.push(*send("#{callback_type}_#{period}_callbacks"))
     end
@@ -33,7 +33,7 @@ class Test::Unit::TestCase
   self.after_each_callbacks  = []
   self.after_all_callbacks   = []
 
-  def self.inherited(child)
+  def self.inherited(child) # :nodoc:
     super
     child.before_all_callbacks  = []
     child.before_each_callbacks = []
@@ -51,11 +51,11 @@ class Test::Unit::TestCase
     end
   end
 
-  def run_each_callbacks(callback_type)
+  def run_each_callbacks(callback_type) # :nodoc:
     self.class.gather_callbacks(callback_type, :each).each { |c| instance_eval(&c) }
   end
 
-  def run_all_callbacks(callback_type)
+  def run_all_callbacks(callback_type) # :nodoc:
     previous_ivars = instance_variables
     self.class.gather_callbacks(callback_type, :all).each { |c| instance_eval(&c) }
     (instance_variables - previous_ivars).inject({}) do |hash, ivar|
@@ -63,7 +63,7 @@ class Test::Unit::TestCase
     end
   end
 
-  def set_values_from_callbacks(values)
+  def set_values_from_callbacks(values) # :nodoc:
     values.each do |name, value|
       instance_variable_set name, value
     end

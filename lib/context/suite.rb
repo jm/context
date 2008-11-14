@@ -24,7 +24,7 @@ module Test
     class TestSuite
       # Runs the tests and/or suites contained in this
       # TestSuite.
-      def run(result, &progress_block)
+      def run(result, &progress_block) # :nodoc:
         yield(STARTED, name)
         ivars_from_callback = @tests.first.run_all_callbacks(:before) if @tests.first.is_a?(Test::Unit::TestCase)
         @tests.each do |test|

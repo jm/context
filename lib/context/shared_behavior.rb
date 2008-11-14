@@ -1,17 +1,17 @@
 module Context
   class SharedBehavior < Module
-    def self.create_from_behavior(beh)
+    def self.create_from_behavior(beh) # :nodoc:
       mod = self.new
       mod._behavior = beh
       
       mod
     end
   
-    def _behavior=(beh)
+    def _behavior=(beh) # :nodoc:
       @_behavior = beh
     end
   
-    def included(arg)
+    def included(arg) # :nodoc:
       @_behavior.call
     end
   end
