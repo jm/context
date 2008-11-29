@@ -42,10 +42,12 @@ class Test::Unit::TestCase
 
     child.class_eval do
       def setup
+        super
         run_each_callbacks :before
       end
 
       def teardown
+        super
         run_each_callbacks :after
       end
     end
