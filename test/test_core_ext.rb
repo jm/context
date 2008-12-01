@@ -13,5 +13,9 @@ class TestCoreExt < Test::Unit::TestCase
     it "should change spaces to _" do
       assert :this_has_been_great, "This has been great".to_method_name
     end
+
+    it "should change dangerous punctuation to _" do
+      assert :no__really__this_was_good, "No, really; this was good".to_method_name
+    end
   end
 end
