@@ -15,7 +15,7 @@ class TestCoreExt < Test::Unit::TestCase
     end
 
     it "should change dangerous punctuation to _" do
-      assert :no__really__this_was_good, "No, really; this was good".to_method_name
+      assert :no__really__this_was__good_, "No, really; this was #good!".to_method_name
     end
   end
 end
