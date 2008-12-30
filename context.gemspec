@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name     = "context"
-  s.version  = "0.0.6"
+  s.version  = "0.5"
   s.date     = "2008-10-03"
   s.summary  = "Contexts and DSL sugar for your tests"
   s.email    = "jeremy@entp.com"

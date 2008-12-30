@@ -54,12 +54,12 @@ class Test::Unit::TestCase
   end
 
   def run_each_callbacks(callback_type) # :nodoc:
-    self.class.gather_callbacks(callback_type, :each).each { |c| instance_eval(&c) }
+    self.class.gather_callbacks(callback_type, :each).each { |c| instance_eval(&c) if c }
   end
 
   def run_all_callbacks(callback_type) # :nodoc:
     previous_ivars = instance_variables
-    self.class.gather_callbacks(callback_type, :all).each { |c| instance_eval(&c) }
+    self.class.gather_callbacks(callback_type, :all).each { |c| instance_eval(&c) if c }
     (instance_variables - previous_ivars).inject({}) do |hash, ivar|
       hash.update ivar => instance_variable_get(ivar)
     end
