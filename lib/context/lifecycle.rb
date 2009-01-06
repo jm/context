@@ -12,6 +12,8 @@ class Test::Unit::TestCase
       send("before_#{period}_callbacks") << block
     end
     
+    alias :setup :before
+    
     # Add logic to run after the tests (i.e., a +teardown+ method)
     #
     #     after do
@@ -21,6 +23,8 @@ class Test::Unit::TestCase
     def after(period = :each, &block)
       send("after_#{period}_callbacks") << block
     end
+    
+    alias :teardown :after
 
     def gather_callbacks(callback_type, period) # :nodoc:
       callbacks = superclass.respond_to?(:gather_callbacks) ? superclass.gather_callbacks(callback_type, period) : []
@@ -41,13 +45,15 @@ class Test::Unit::TestCase
     child.after_all_callbacks   = []
 
     child.class_eval do
-      def setup
+      def setup(&block)
         super
+        
         run_each_callbacks :before
       end
 
       def teardown
         super
+
         run_each_callbacks :after
       end
     end

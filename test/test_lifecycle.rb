@@ -25,7 +25,7 @@ class TestLifecycle < Test::Unit::TestCase
   sample_test = context "lifecycle" do
     attr_reader :inherited_before_each_var, :inherited_before_each_var_2, :inherited_after_each_var, 
       :after_each_var, :inherited_before_all_var, :inherited_after_all_var, :before_all_var, :after_all_var, 
-      :superclass_before_each_var, :superclass_after_each_var, :superclass_before_all_var, :superclass_after_all_var
+      :superclass_before_each_var, :superclass_after_each_var, :superclass_before_all_var, :superclass_after_all_var, :one, :two
 
     before do
       @inherited_before_each_var = 3
@@ -125,6 +125,40 @@ class TestLifecycle < Test::Unit::TestCase
 
     it "it runs after callbacks" do
       assert_equal 1, @test.after_all_var
+    end
+  end
+  
+  # Test that we aren't stomping on defined seutp method
+  context "With setup/teardown methods" do
+    before do
+      @result = Test::Unit::TestResult.new
+      @test = sample_test.new("test_lifecycle_foo")
+      
+      @test.class.setup do
+        @one = 1
+      end
+      
+      @test.class.teardown do
+        @two = 10
+      end
+      
+      @test.run(@result) { |inherited_after_each_var, v| }
+    end
+    
+    it "runs setup method block a la Shoulda" do
+      assert_equal 1, @test.one
+    end
+    
+    it "runs setup method block and regular callbacks" do
+      assert_equal 3, @test.inherited_before_each_var
+    end
+    
+    it "runs teardown method block a la Shoulda" do
+      assert_equal 10, @test.two
+    end
+    
+    it "runs teardown method block and regular callbacks" do
+      assert_equal 1, @test.after_each_var
     end
   end
 end
