@@ -15,6 +15,7 @@ lib/context/test.rb
 lib/context/version.rb
 lib/context/shared_behavior.rb
 lib/context/core_ext/string.rb
+lib/context/core_ext/rails_hacks.rb
 setup.rb
 tasks/deployment.rake
 tasks/environment.rake

@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "lib/context/test.rb",
     "lib/context/version.rb",
     "lib/context/core_ext/string.rb",
+    "lib/context/core_ext/rails_hacks.rb",
     "setup.rb"
   ]
   

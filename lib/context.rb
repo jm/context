@@ -5,6 +5,8 @@ require 'rubygems'
 require 'test/unit'
 
 require 'context/core_ext/string'
+require 'context/core_ext/rails_hacks'
+
 require 'context/version'
 require 'context/suite'
 require 'context/test'
