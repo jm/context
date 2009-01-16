@@ -66,7 +66,7 @@ class TestLifecycle < Test::Unit::TestCase
   context "With before/after :each blocks" do
     before do
       @result = Test::Unit::TestResult.new
-      @test = sample_test.new("test_lifecycle_foo")
+      @test = sample_test.new("test: lifecycle foo")
       @test.run(@result) { |inherited_after_each_var, v| }
     end
 
@@ -132,7 +132,7 @@ class TestLifecycle < Test::Unit::TestCase
   context "With setup/teardown methods" do
     before do
       @result = Test::Unit::TestResult.new
-      @test = sample_test.new("test_lifecycle_foo")
+      @test = sample_test.new("test: lifecycle foo")
       
       @test.class.setup do
         @one = 1
