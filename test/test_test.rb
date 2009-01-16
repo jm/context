@@ -11,7 +11,7 @@ class TestTest < Test::Unit::TestCase
     it "should create a test_xxx method" do
       self.class.test("should create a test method") { true }
       
-      assert self.respond_to?(:test_a_test_block_should_create_a_test_method)
+      assert self.respond_to?("test: A test block should create a test method")
     end
   end
 end
