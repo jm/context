@@ -87,7 +87,7 @@ class TestTest < Test::Unit::TestCase
       it "by a symbol" do
         self.class.use :athos
 
-        assert test_a_shared_group_should_include_its_shared_behavior_en_garde
+        assert send("test: A shared group should include its shared behavior en_garde")
       end
     
       shared "Porthos" do
