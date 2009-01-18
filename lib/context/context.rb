@@ -1,5 +1,5 @@
-class Test::Unit::TestCase
-  class << self
+module Context
+  module Context
     # Test::Unit uses ObjectSpace to figure out what Test::Unit:TestCase instances are running
     # Contexts are not named and therefore sometimes get garbage collected.
     # Think of #context_list as the shelter for nameless contexts

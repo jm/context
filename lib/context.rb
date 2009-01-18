@@ -13,3 +13,7 @@ require 'context/test'
 require 'context/lifecycle'
 require 'context/context'
 require 'context/shared_behavior'
+
+class Test::Unit::TestCase
+  extend Context::Context
+end
