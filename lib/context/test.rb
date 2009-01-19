@@ -7,11 +7,15 @@ class Test::Unit::TestCase
     #       assert_false @user.can?(:delete, @other_user)
     #     end
     #
-    def test(name, &block)
+    def test(name, opts={}, &block)
       test_name = ["test:", context_name, name].reject { |n| n == "" }.join(' ')
       # puts "running test #{test_name}"
       defined = instance_method(test_name) rescue false
       raise "#{test_name} is already defined in #{self}" if defined
+
+      unless opts[:before].nil?
+        before_should_callbacks[test_name] = opts[:before]
+      end
       
       if block_given?
         define_method(test_name, &block)

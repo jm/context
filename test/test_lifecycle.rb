@@ -161,4 +161,20 @@ class TestLifecycle < Test::Unit::TestCase
       assert_equal 1, @test.after_each_var
     end
   end
+
+  context "With the before option" do
+    setup do
+      @jvar = "override success!"
+    end
+
+    l = lambda { @ivar = "awesome" }
+    should "run the lambda", :before => l do
+      assert_equal "awesome", @ivar
+    end
+
+    l = lambda { @jvar = "should be overridden" }
+    should "run the lambda before the setup", :before => l do
+      assert_equal "override success!", @jvar
+    end
+  end
 end

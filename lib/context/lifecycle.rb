@@ -1,6 +1,6 @@
 class Test::Unit::TestCase
   class << self
-    attr_accessor :before_each_callbacks, :before_all_callbacks, :after_each_callbacks, :after_all_callbacks
+    attr_accessor :before_each_callbacks, :before_all_callbacks, :after_each_callbacks, :after_all_callbacks, :before_should_callbacks
 
     # Add logic to run before the tests (i.e., a +setup+ method)
     #
@@ -32,22 +32,28 @@ class Test::Unit::TestCase
     end
   end
 
-  self.before_all_callbacks  = []
-  self.before_each_callbacks = []
-  self.after_each_callbacks  = []
-  self.after_all_callbacks   = []
+  self.before_all_callbacks    = []
+  self.before_each_callbacks   = []
+  self.after_each_callbacks    = []
+  self.after_all_callbacks     = []
+  self.before_should_callbacks = {}
 
   def self.inherited(child) # :nodoc:
     super
-    child.before_all_callbacks  = []
-    child.before_each_callbacks = []
-    child.after_each_callbacks  = []
-    child.after_all_callbacks   = []
+    child.before_all_callbacks    = []
+    child.before_each_callbacks   = []
+    child.after_each_callbacks    = []
+    child.after_all_callbacks     = []
+    child.before_should_callbacks = {}
 
     child.class_eval do
       def setup(&block)
         super
         
+        unless self.class.before_should_callbacks[method_name].nil?
+          instance_eval(&self.class.before_should_callbacks[method_name])
+        end
+
         run_each_callbacks :before
       end
 
