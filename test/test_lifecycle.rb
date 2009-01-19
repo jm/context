@@ -177,4 +177,15 @@ class TestLifecycle < Test::Unit::TestCase
       assert_equal "override success!", @jvar
     end
   end
+
+  context "Before tests" do
+    # omg this is odd
+    setup do
+      assert_equal "yup, it's set", @ivar
+    end
+
+    before_test "run before the setup block" do
+      @ivar = "yup, it's set"
+    end
+  end
 end

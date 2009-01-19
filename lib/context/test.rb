@@ -27,5 +27,11 @@ class Test::Unit::TestCase
     end
     
     %w(it should tests).each {|m| alias_method m, :test} 
+
+    def before_test(name, &block)
+      test(name, :before => block) {}
+    end
+
+    %w(before_it before_should before_tests).each {|m| alias_method m, :before_test}
   end
 end
