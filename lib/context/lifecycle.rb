@@ -9,6 +9,11 @@ class Test::Unit::TestCase
     #     end
     # 
     def before(period = :each, &block)
+      unless block_given?
+        block  = period
+        period = :each
+      end
+
       send("before_#{period}_callbacks") << block
     end
     
@@ -21,6 +26,11 @@ class Test::Unit::TestCase
     #     end
     #
     def after(period = :each, &block)
+      unless block_given?
+        block  = period
+        period = :each
+      end
+
       send("after_#{period}_callbacks") << block
     end
     
@@ -66,7 +76,9 @@ class Test::Unit::TestCase
   end
 
   def run_each_callbacks(callback_type) # :nodoc:
-    self.class.gather_callbacks(callback_type, :each).each { |c| instance_eval(&c) if c }
+    self.class.gather_callbacks(callback_type, :each).each do |c| 
+      c.is_a?(Proc) ? instance_eval(&c) : send(c)
+    end
   end
 
   def run_all_callbacks(callback_type) # :nodoc:

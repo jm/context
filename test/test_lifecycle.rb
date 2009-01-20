@@ -24,7 +24,7 @@ class TestLifecycle < Test::Unit::TestCase
 
   sample_test = context "lifecycle" do
     attr_reader :inherited_before_each_var, :inherited_before_each_var_2, :inherited_after_each_var, 
-      :after_each_var, :inherited_before_all_var, :inherited_after_all_var, :before_all_var, :after_all_var, 
+      :after_each_var, :inherited_before_all_var, :inherited_after_all_var, :before_all_var, :after_all_var, :ivar,
       :superclass_before_each_var, :superclass_after_each_var, :superclass_before_all_var, :superclass_after_all_var, :one, :two
 
     before do
@@ -42,6 +42,8 @@ class TestLifecycle < Test::Unit::TestCase
     after :all do
       @after_all_var = 1
     end
+
+    after :a_method
 
     test "foo" do
     end
@@ -92,6 +94,10 @@ class TestLifecycle < Test::Unit::TestCase
 
     it "it runs after callbacks" do
       assert_equal 1, @test.after_each_var
+    end
+
+    it "it runs after callbacks specified with method names, instead of blocks" do
+      assert_equal "a method ran", @test.ivar
     end
   end
 
@@ -188,4 +194,17 @@ class TestLifecycle < Test::Unit::TestCase
       @ivar = "yup, it's set"
     end
   end
+
+  context "To be compatible with rails' expectations" do
+    setup :a_method
+
+    it "should accept a symbol for an argument to setup and run that method at setup time" do
+      assert_equal "a method ran", @ivar
+    end
+  end
+
+  protected
+    def a_method
+      @ivar = "a method ran"
+    end
 end
