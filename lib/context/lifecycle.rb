@@ -87,6 +87,12 @@ class Test::Unit::TestCase
     (instance_variables - previous_ivars).inject({}) do |hash, ivar|
       hash.update ivar => instance_variable_get(ivar)
     end
+  rescue Object => exception
+    raise <<-BANG
+  Error running the #{callback_type}(:all) callback for #{name}
+  #{exception.class.name}: #{exception.message}
+  #{exception.backtrace.join("\n")}
+    BANG
   end
 
   def set_values_from_callbacks(values) # :nodoc:
