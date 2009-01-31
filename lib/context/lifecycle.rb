@@ -72,7 +72,7 @@ class Test::Unit::TestCase
 
         run_each_callbacks :after
       end
-    end
+    end if self == Test::Unit::TestCase
   end
 
   def run_each_callbacks(callback_type) # :nodoc:

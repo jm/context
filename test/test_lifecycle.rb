@@ -2,24 +2,30 @@ require File.dirname(__FILE__) + '/test_helper.rb'
 
 class TestLifecycle < Test::Unit::TestCase
   before do
-    @inherited_before_each_var = 1
+    @inherited_before_each_var ||= 0
+    @inherited_before_each_var  += 1
   end
 
   before do
-    @inherited_before_each_var = 2
-    @inherited_before_each_var_2 = 1
+    @inherited_before_each_var   ||= 0
+    @inherited_before_each_var_2 ||= 0
+    @inherited_before_each_var    += 2
+    @inherited_before_each_var_2  += 1
   end
 
   after do
-    @inherited_after_each_var = 1
+    @inherited_after_each_var ||= 0
+    @inherited_after_each_var  += 1
   end
 
   before :all do
-    @inherited_before_all_var = 1
+    @inherited_before_all_var ||= 0
+    @inherited_before_all_var  += 1
   end
 
   after :all do
-    @inherited_after_all_var = 1
+    @inherited_after_all_var ||= 0
+    @inherited_after_all_var  += 1
   end
 
   sample_test = context "lifecycle" do
@@ -28,19 +34,23 @@ class TestLifecycle < Test::Unit::TestCase
       :superclass_before_each_var, :superclass_after_each_var, :superclass_before_all_var, :superclass_after_all_var, :one, :two
 
     before do
-      @inherited_before_each_var = 3
+      @inherited_before_each_var ||= 0
+      @inherited_before_each_var  += 4
     end
 
     after do
-      @after_each_var = 1
+      @after_each_var ||= 0
+      @after_each_var  += 1
     end
 
     before :all do
-      @before_all_var = 1
+      @before_all_var ||= 0
+      @before_all_var  += 1
     end
 
     after :all do
-      @after_all_var = 1
+      @after_all_var ||= 0
+      @after_all_var  += 1
     end
 
     after :a_method
@@ -50,19 +60,23 @@ class TestLifecycle < Test::Unit::TestCase
   end
 
   before do
-    @superclass_before_each_var = 1
+    @superclass_before_each_var ||= 0
+    @superclass_before_each_var  += 1
   end
 
   after do
-    @superclass_after_each_var = 1
+    @superclass_after_each_var ||= 0
+    @superclass_after_each_var  += 1
   end
 
   before :all do
-    @superclass_before_all_var = 1
+    @superclass_before_all_var ||= 0
+    @superclass_before_all_var  += 1
   end
 
   after :all do
-    @superclass_after_all_var = 1
+    @superclass_after_all_var ||= 0
+    @superclass_after_all_var  += 1
   end
 
   context "With before/after :each blocks" do
@@ -77,7 +91,7 @@ class TestLifecycle < Test::Unit::TestCase
     end
 
     it "it runs inherited before callbacks in order" do
-      assert_equal 3, @test.inherited_before_each_var
+      assert_equal 7, @test.inherited_before_each_var
     end
 
     it "it runs before callbacks in order" do
@@ -156,7 +170,7 @@ class TestLifecycle < Test::Unit::TestCase
     end
     
     it "runs setup method block and regular callbacks" do
-      assert_equal 3, @test.inherited_before_each_var
+      assert_equal 7, @test.inherited_before_each_var
     end
     
     it "runs teardown method block a la Shoulda" do
