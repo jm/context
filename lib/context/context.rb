@@ -49,7 +49,6 @@ module Context
       # puts "Creating context #{cls.context_name}"
       cls.class_eval(&block)
       (self.context_list ||= []) << cls
-      
       const_set("Test#{name.to_class_name}#{cls.object_id.abs}", cls)
       cls
     end

@@ -2,7 +2,7 @@ class String
   # Replaces spaces and tabs with _ so we can use the string as a method name
   # Also replace dangerous punctuation
   def to_method_name
-    self.downcase.gsub(/[\s:',;!#]+/,'_')
+    self.downcase.gsub(/[\s:',;!#=]+/,'_')
   end
   
   # Borrowed from +camelize+ in ActiveSupport
