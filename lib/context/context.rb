@@ -47,6 +47,12 @@ module Context
       cls = Class.new(self)
       cls.context_name = name
       # puts "Creating context #{cls.context_name}"
+      
+      # Care about Rails tests in nested contexts
+      cls.tests($1.constantize) if defined?(Rails) && 
+        self.name =~ /^(.*(Controller|Helper|Mailer))Test/ && 
+          self < ActiveSupport::TestCase
+
       cls.class_eval(&block)
       (self.context_list ||= []) << cls
       const_set("Test#{name.to_class_name}#{cls.object_id.abs}", cls)
