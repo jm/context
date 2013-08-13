@@ -14,6 +14,6 @@ require 'context/lifecycle'
 require 'context/context'
 require 'context/shared_behavior'
 
-class Test::Unit::TestCase
+class ActiveSupport::TestCase
   extend Context::Context
 end
